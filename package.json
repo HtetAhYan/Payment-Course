@@ -37,7 +37,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "20.4.9",
-    "daisyui": "^3.5.1",
+  
     "prisma": "^5.1.1"
   }
 }
