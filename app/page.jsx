@@ -30,14 +30,6 @@ export default  function Page() {
       router.push('/login');
     }
   }, [status, router]);
-
-
-const cartItems = [
-    { id: 1, name: "Product A", price: 10.99 },
-    { id: 2, name: "Product B", price: 19.99 },
-    { id: 3, name: "Product C", price: 8.49 },
-  ];
-
   if (status === 'authenticated') {
       return (
     <div className=" bg-slate-200 min-h-screen">
@@ -46,7 +38,7 @@ const cartItems = [
     </div>
       )
     
-  }else router.push('/login')
+  } 
 
 }
 
