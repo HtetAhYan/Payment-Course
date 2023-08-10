@@ -8,11 +8,11 @@ export async function GET(){
   const prisma = new PrismaClient();
 
 if(!session){
-     NextResponse.json({
+     return NextResponse.json({
       status: 401,
       message: "Please login",
     })
-    return;
+   
   }
   try {
     const email = session.user.email;
