@@ -23,23 +23,25 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-     
+   
 
         const res = await signIn("credentials", {
     
         redirect: false,
         email: formValues.email,
-        password: formValues.password,
+          password: formValues.password,
+        
       });
               console.log(formValues);
 
       setLoading(false);
 
       if (!res?.error) {
-        console.log(res.error);
-         setFormValues({ email: "", password: "" });
+        console.log(res);
+        
       } else {
         setError("invalid email or password");
+           setFormValues({ email: "", password: "" });
       }
     } catch (error) {
       setLoading(false);
