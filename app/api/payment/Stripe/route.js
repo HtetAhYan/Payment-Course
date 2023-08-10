@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
-import Stripe from 'stripe'
-export const stripe = new Stripe(process.env.STRIPE_KEY || "", {
-  apiVersion: "2022-11-15",
-  typescript: false
-})
+import { stripe } from '../../../serverHooks/Stripe'
 export const POST = async(request) => {
   const items = await request.json();
 
- const itemss = [{slug:'dfdfd',price:299}]
+
   try {
     const CheckoutSession = await stripe.checkout.sessions.create({
       line_items: items.map(item => ({ 
