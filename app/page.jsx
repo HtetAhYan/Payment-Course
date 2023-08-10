@@ -10,7 +10,7 @@ import getData from './serverHooks/getWebinarData'
 export default  function Page() {
   const [data, setData] = useState(null); // State to store fetched data
   const router = useRouter()
-  const { data: session,status } = useSession()
+  const { status } = useSession()
   useLayoutEffect(() => {
  
     async function fetchData() {
