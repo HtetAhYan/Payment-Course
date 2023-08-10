@@ -23,6 +23,6 @@ export const POST = async(request) => {
 return NextResponse.json({url : CheckoutSession.url})
   } catch (error) {
   
-    return NextResponse.json({error:error.message,items},{status:500})
+    return NextResponse.json({error:error.message},{status:500})
   }
 }
