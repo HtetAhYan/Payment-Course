@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button } from "@mui/material";
-import getStripe from '../serverHooks/Stripe';
+import { useRouter } from 'next/navigation';
 function Checkout({ total,items }) {
-  
-  const handled=async()=> {
+  const router = useRouter()
+  const handled = async () => {
+    
     const data = await fetch('/api/payment/Stripe', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
@@ -13,7 +14,7 @@ function Checkout({ total,items }) {
       alert('Error')
     }
     const { url } = await data.json()
-    window.location.href = url
+   router.push(url)
   }
   return (
        <><div className="mt-4">
