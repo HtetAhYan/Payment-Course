@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import getData from './serverHooks/getWebinarData'
 
-export default  function page() {
+export default  function Page() {
   const [data, setData] = useState(null); // State to store fetched data
   const router = useRouter()
   const { data: session,status } = useSession()
