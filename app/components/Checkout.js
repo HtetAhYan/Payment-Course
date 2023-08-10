@@ -9,7 +9,7 @@ function Checkout({ total,items }) {
     
     const data = await fetch('/api/payment/Stripe', {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
+     
       body:JSON.stringify(items),
     })
     if (!data.ok) {
