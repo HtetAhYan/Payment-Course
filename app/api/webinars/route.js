@@ -8,7 +8,10 @@ export async function GET(req,res){
   const prisma = new PrismaClient();
 
 if(!session){
-    res.status(401).json({ message: "You must be logged in." });
+     NextResponse.json({
+      status: 401,
+      message: "Please login",
+    })
     return;
   }
   try {
