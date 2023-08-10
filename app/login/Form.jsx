@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      setFormValues({ email: "", password: "" });
+     
 
         const res = await signIn("credentials", {
     
@@ -37,6 +37,7 @@ const Login = () => {
 
       if (!res?.error) {
         console.log(res.error);
+         setFormValues({ email: "", password: "" });
       } else {
         setError("invalid email or password");
       }
