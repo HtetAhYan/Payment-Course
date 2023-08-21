@@ -26,7 +26,7 @@ setLoad(false)
     <div className='p-4'>
     <Stack spacing={4} direction='row' className='' >
         {data && data.map((d) => (
-          <Link  href={{
+          <Link key={d.id}  href={{
             pathname: `/portal/instructor/${d?.slug}`,
             query: {data: d.id}
 
