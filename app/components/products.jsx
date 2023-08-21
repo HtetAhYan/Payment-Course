@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
-import Checkout from './Checkout'
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, Typography, List, ListItem, ListItemText } from "@mui/material";
+import Checkout from './Checkout';
 
 const Product = ({ items }) => {
   // Initialize the total price state
@@ -18,25 +19,34 @@ const Product = ({ items }) => {
 
   // Update the total price state whenever the items change
   useEffect(() => {
-     // eslint-disable-next-line react-hooks/exhaustive-deps
     setTotal(calculateTotalPrice());
-     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
-      <ul className="space-y-4">
-        {items && items.map(item => (
-          <li key={item.id} className="flex justify-between items-center">
-            <span>{item.slug}</span>
-            <span>${item.price}</span>
-          </li>
-        ))}
-      </ul>
-
-      <Checkout total={total} items={items} />
-    </div>
+    <Card className="w-96 mx-auto mt-8 p-6 rounded-lg shadow-lg border-2 border-gray-200">
+      <CardContent>
+        <Typography variant="h4" component="h2" className="mb-4 font-semibold text-gray-700">
+          Your Cart
+        </Typography>
+        <List>
+          {items && items.map(item => (
+            <ListItem key={item.id} className="flex justify-between items-center border-b py-2">
+              <ListItemText primary={item.slug} className="text-gray-600" />
+              <span className="text-gray-700">${item.price}</span>
+            </ListItem>
+          ))}
+        </List>
+        <div className="mt-4 flex justify-between items-center">
+          <Typography variant="h6" className="text-gray-600">
+            Total:
+          </Typography>
+          <Typography variant="h6" className="text-gray-700">
+            ${total}
+          </Typography>
+        </div>
+        <Checkout total={total} items={items} />
+      </CardContent>
+    </Card>
   );
 };
 

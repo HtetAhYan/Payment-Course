@@ -17,7 +17,7 @@ export default  function Page() {
   const { status } = useSession()
   useLayoutEffect(() => {
  
-fetchData().then((res)=> setData(res))
+fetchData('/api/webinars').then((res)=> setData(res))
 
     
   }, [status, router]);
