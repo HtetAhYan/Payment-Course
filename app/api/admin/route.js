@@ -1,46 +1,47 @@
-
+import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import {prisma} from '../../lib/prismaAdapter'
+
 export async function GET(){
  const session = await getServerSession(authOptions)
+  const prisma = new PrismaClient();
 
 
-if(!session){
-     return NextResponse.json({
+
+  if(session.user.email !=="admin@demo.com"){
+    return NextResponse.json({
       status: 401,
-      message: "Please login",
-    })
-   
+      message: "You are Not Admin",
+    });
   }
+  
   try {
+  
     const email = session.user.email;
-    
-
-    const user = await prisma.users.findUnique({
-      where: { email: email }, select: {
-        id:true,  
-  full_name:true,role_id:true,role_name:true,
-      }
-    });
-const cart = await prisma.cart.findMany({
-      where: {creator_id:user.id}
-    });
-    if (!user) {
-      return NextResponse.error('User not found', { status: 404 });
-    }
-  const cartWithWebinars = await Promise.all(
-      cart.map(async (c) => {
+    const prisma = new PrismaClient();
+    const order = await prisma.order_items.findMany()
+      
+  const webinars = await Promise.all(
+      order.map(async (c) => {
         const webinar = await prisma.webinars.findUnique({
           where: { id: c.webinar_id },
         });
         return webinar;
       })
     );
+      const users = await Promise.all(
+      order.map(async (c) => {
+        const user = await prisma.users.findUnique({
+          where: { id: c.user_id },
+        });
+        return user;
+      })
+    );
+
 
     // Return the cart items along with webinar data
-    return NextResponse.json({cartWithWebinars,user});
+    return NextResponse.json({ order, users, webinars }, { revalidated: true });
   } catch (error) {
     return NextResponse.error('An error occurred', { status: 500 });
   } finally {

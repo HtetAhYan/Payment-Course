@@ -7,8 +7,10 @@ function Header() {
   console.log(session);
   
   return (
-    <div className='w-full h-10 bg-slate-350' ><button onclick={() => signOut()}>click</button></div>
+    <div className='w-full h-10 bg-slate-350' >
+      
+      <button onclick={() => signOut()}>click</button></div>
   )
 }
-
+      
 export default Header

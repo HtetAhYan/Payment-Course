@@ -1,40 +1,38 @@
 'use client'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import Header from './components/header'
-import Product from './components/products'
 
-import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
-import getData from './serverHooks/getWebinarData'
+
+import { redirect, useRouter } from 'next/navigation'
+import { signOut, useSession } from 'next-auth/react'
+
+
 
 export default  function Page() {
-  const [data, setData] = useState(null); // State to store fetched data
   const router = useRouter()
-  const { status } = useSession()
+  const { status, data: session } = useSession()
+ 
+  
   useLayoutEffect(() => {
  
-    async function fetchData() {
-      try {
-        const responseData = await getData();
-        setData(responseData);
-      } catch (error) {
-        // Handle error
-        console.error(error);
-      }
-   
-    }
-
-    fetchData(); // Call the fetch function when the component mounts
 
     if (status !== 'authenticated') {
-      router.push('/login');
+      redirect('/login');
+    }
+    if(session?.user?.role_name !=='admin'){
+      redirect('/admin');
+    }if(session){
+      redirect('/cart');
     }
   }, [status, router]);
-  if (status === 'authenticated') {
+  ;
+ 
+  
+
+if (status === 'authenticated') {
       return (
     <div className=" bg-slate-200 min-h-screen">
-      <Header />
-      <Product items={data}/>
+    
+    <h1 onClick={()=>signOut()}>hello admin</h1>
     </div>
       )
     

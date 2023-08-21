@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model installment_step_translations {
+  id                  Int               @id @default(autoincrement()) @db.UnsignedInt
+  installment_step_id Int               @db.UnsignedInt
+  locale              String            @db.VarChar(255)
+  title               String            @db.VarChar(255)
+  installment_steps   installment_steps @relation(fields: [installment_step_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "installment_step_translations_installment_step_id_foreign")
+
+  @@index([installment_step_id], map: "installment_step_translations_installment_step_id_foreign")
+  @@index([locale], map: "installment_step_translations_locale_index")
+}
+
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model accounting {
   id                         Int                         @id @default(autoincrement()) @db.UnsignedInt
@@ -1293,17 +1304,6 @@ model installment_specification_items {
   @@index([seller_id], map: "installment_specification_items_seller_id_foreign")
   @@index([subscribe_id], map: "installment_specification_items_subscribe_id_foreign")
   @@index([webinar_id], map: "installment_specification_items_webinar_id_foreign")
-}
-
-model installment_step_translations {
-  id                  Int               @id @default(autoincrement()) @db.UnsignedInt
-  installment_step_id Int               @db.UnsignedInt
-  locale              String            @db.VarChar(255)
-  title               String            @db.VarChar(255)
-  installment_steps   installment_steps @relation(fields: [installment_step_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "installment_step_translations_installment_step_id_foreign")
-
-  @@index([installment_step_id], map: "installment_step_translations_installment_step_id_foreign")
-  @@index([locale], map: "installment_step_translations_locale_index")
 }
 
 model installment_steps {
@@ -3398,7 +3398,7 @@ model webinar_chapter_items {
   user_id          Int                        @db.UnsignedInt
   chapter_id       Int                        @db.UnsignedInt
   item_id          Int                        @db.UnsignedInt
-  type             webinar_chapter_items_type
+  type             webinar_chapter_items_type?
   order            Int?                       @db.UnsignedInt
   created_at       BigInt                     @db.UnsignedBigInt
   users            users                      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "user_id")
@@ -3413,7 +3413,7 @@ model webinar_chapter_translations {
   webinar_chapter_id Int              @db.UnsignedInt
   locale             String           @db.VarChar(255)
   title              String           @db.VarChar(255)
-  webinar_chapters   webinar_chapters @relation(fields: [webinar_chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "webinar_chapter_id")
+  webinar_chapters   webinar_chapters? @relation(fields: [webinar_chapter_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "webinar_chapter_id")
 
   @@index([webinar_chapter_id], map: "webinar_chapter_id")
   @@index([locale], map: "webinar_chapter_translations_locale_index")
@@ -3933,14 +3933,6 @@ enum webinars_type {
   text_lesson
 }
 
-enum webinar_chapter_items_type {
-  file
-  session
-  text_lesson
-  quiz
-  assignment
-}
-
 enum webinar_extra_descriptions_type {
   learning_materials
   company_logos
@@ -4345,4 +4337,12 @@ enum users_status {
   active
   pending
   inactive
+}
+
+enum webinar_chapter_items_type {
+  file
+  session
+  text_lesson
+  quiz
+  assignment
 }

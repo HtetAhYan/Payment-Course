@@ -10,7 +10,7 @@ const Product = ({ items }) => {
     let totalPrice = 0;
     if (items) {
       items.forEach(item => {
-        totalPrice += item.webinarData.price;
+        totalPrice += item.price;
       });
     }
     return totalPrice;
@@ -26,9 +26,9 @@ const Product = ({ items }) => {
       <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
       <ul className="space-y-4">
         {items && items.map(item => (
-          <li key={item.webinarData.id} className="flex justify-between items-center">
-            <span>{item.webinarData.slug}</span>
-            <span>${item.webinarData.price}</span>
+          <li key={item.id} className="flex justify-between items-center">
+            <span>{item.slug}</span>
+            <span>${item.price}</span>
           </li>
         ))}
       </ul>

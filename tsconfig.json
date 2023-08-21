@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/api/payment/Stripe/webhooks/route.js", "app/api/instructor/course/[id]/route.js"  ],
   "exclude": [
     "node_modules"
   ]

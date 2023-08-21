@@ -9,13 +9,17 @@ function Checkout({ total,items }) {
     
     const data = await fetch('/api/payment/Stripe', {
       method: 'POST',
-     
-      body:JSON.stringify(items),
+        headers: {
+        "Content-Type": 'application/json'
+      }
+     ,
+      body:JSON.stringify(items,total),
     })
     if (!data.ok) {
       alert('Error')
     }
-    const { url } = await data.json()
+    const { url, user } = await data.json()
+    console.log(user);
    router.push(url)
   }
   useEffect(() => {

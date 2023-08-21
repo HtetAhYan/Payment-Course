@@ -1,10 +1,10 @@
 "use client"
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { signIn } from "next-auth/react";
+
+import {  useState } from "react";
 
 const Login = () => {
-  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -12,12 +12,8 @@ const Login = () => {
   });
   const [error, setError] = useState("");
 
-  const { data: session } = useSession();
- 
-  if (session) {
-    router.push("/"); // Redirect if the user is already logged in
-    return null;
-  }
+
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +28,7 @@ const Login = () => {
           password: formValues.password,
         
       });
-              console.log(formValues);
+              
 
       setLoading(false);
 

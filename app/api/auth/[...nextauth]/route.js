@@ -1,11 +1,11 @@
 // app/api/auth/[...nextauth].js
 
 import NextAuth from "next-auth/next";
-import { PrismaClient } from "@prisma/client";
+import {prisma} from '../../../lib/prismaAdapter'
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
-const prisma = new PrismaClient();
+
 export const authOptions = ({
     session: {
         strategy:"jwt"
