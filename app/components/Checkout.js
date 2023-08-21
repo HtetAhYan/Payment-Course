@@ -4,7 +4,8 @@ import { Button } from "@mui/material";
 import { useRouter } from 'next/navigation';
 function Checkout({ total,items }) {
   const router = useRouter()
-   const [buttonClicked, setButtonClicked] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handled = async () => {
     
     const data = await fetch('/api/payment/Stripe', {
@@ -23,7 +24,9 @@ function Checkout({ total,items }) {
    router.push(url)
   }
   useEffect(() => {
+     // eslint-disable-next-line react-hooks/exhaustive-deps
     if (buttonClicked) {
+       // eslint-disable-next-line react-hooks/exhaustive-deps
       handled();
     }
   }, [buttonClicked]);

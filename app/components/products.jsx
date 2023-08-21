@@ -18,7 +18,9 @@ const Product = ({ items }) => {
 
   // Update the total price state whenever the items change
   useEffect(() => {
+     // eslint-disable-next-line react-hooks/exhaustive-deps
     setTotal(calculateTotalPrice());
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   return (
